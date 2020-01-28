@@ -1,6 +1,6 @@
 import argparse
 import sys
-import configparser
+import yaml
 
 def main(number, other_number, outut):
 	result = number * other_number
@@ -11,18 +11,16 @@ if __name__ == '__main__':
 	parser.add_argument('-n1', type=int, help='A number', default=1)
 	parser.add_argument('-n2', type=int, help='Another number', default=1)
 
-	parser.add_argument('--config', '-c', type=argparse.FileType('r'), help='config file')
-
-	# Store result
+	parser.add_argument('--config', '-c', type=argparse.FileType('r'), help='config file in YAML')
 	parser.add_argument('-o', dest='output', type=argparse.FileType('w'), default=sys.stdout, help='Ouput file')
 
 	args = parser.parse_args()
 
 	if args.config:
-		config = configparser.ConfigParser()
-		config.read_file(args.config)
+		config = yaml.load(args.config, Loader=args.config)
 
 		# Transform values into integers
-		args.n1 = int(config['DEFAULT']['n1'])
-		args.n2 = int(config['DEFAULT']['n2'])
+		args.n1 = config['ARGUMENTS']['n1']
+		args.n2 = config['ARGUMENTS']['n2']
+
 	main(args.n1, args.n2, args.output)
