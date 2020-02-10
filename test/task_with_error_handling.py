@@ -1,9 +1,6 @@
 import argparse
 import sys
 import logging
-import smtp
-from email.message import EmailMessage
-
 
 # Log fomat
 LOG_FORMAT = '%(asctime)s %(name)s %(levelname)s %(message)s'
@@ -32,6 +29,6 @@ if __name__ == '__main__':
 		main(args.n1, args.n2, args.output)
 	except Exception as e:
 		logging.exception('Error running task')
-		print('Error. Please check logs file for more.', file=args.output)
-		# exit(1)
+		print('Error. Please check log file for more.', file=args.output)
+		exit(1)
 	

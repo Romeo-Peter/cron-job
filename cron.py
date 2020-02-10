@@ -13,8 +13,8 @@ if __name__ == '__main__':
 		description="Task scheduler (cron-like)",
 		formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-	parser.add_argument('-n1', dest=n1 type=int, help='A number', default=1)
-	parser.add_argument('-n2', dest=n2 type=int, help='Another number', default=1)
+	parser.add_argument('-n1', dest='n1', type=int, help='A number', default=1)
+	parser.add_argument('-n2', dest='n2', type=int, help='Another number', default=1)
 	parser.add_argument('--config', '-c', dest='config', type=argparse.FileType('r'), help="config file", default='etc/automate.ini')
 	parser.add_argument('-o', dest='output', type=argparse.FileType('a'), default=sys.stdout)
 
@@ -23,6 +23,7 @@ if __name__ == '__main__':
 	if args.config:
 		config = configparser.ConfigParser()
 		config.read_file(args.config)
+
 		# Transform values into integers
 		args.n1 = int(config['DEFAULT']['n1'])
 		args.n2 = int(config['DEFAULT']['n2'])
